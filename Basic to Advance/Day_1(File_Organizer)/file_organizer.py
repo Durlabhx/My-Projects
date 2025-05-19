@@ -76,6 +76,46 @@ def undo_last_move(folder_path):
     except Exception as e:
         print("Error while undoing:", e)
 
-undo = input("Do you want to undo last moved file (yes/no): ").lower()
-if undo == "yes":
+def undo_all(folder_path):
+    log_file = os.path.join(folder_path, "log.txt")
+
+    if not os.path.exists(log_file):
+        print("Log file not found. Cannot Undo.")
+        return
+    with open(log_file, 'r', encoding='UTF-8') as f:
+        lines = f.readlines()
+
+    if not lines:
+        print("Log file is empty. Nothing to undo")
+        return 
+    
+    lines_to_keep = lines[:]
+    for line in reversed(lines):
+        try:
+            file_name = line.split('->')[0].strip()
+            folder = line.split('->')[1].split('at')[0].strip()
+            source = os.path.join(folder_path, folder, file_name)
+            destination = os.path.join(folder_path, file_name)
+
+            if os.path.exists(source):
+                shutil.move(source, destination)
+                print(f"Moved back {file_name} to the main folder.")
+                lines_to_keep.remove(line)
+            else:
+                print(f"{file_name} not found at expected location")
+
+        except Exception as e:
+            print("Error while undoing:", e)
+
+    with open(log_file, 'w', encoding='UTF-8')as f:
+        f.writelines(lines_to_keep)
+        
+undo=input("1. Undo All Moved Files\n2. Undo last moved file\n3. No Undo\nChoose your option to undo(1, 2 or 3): ")
+if undo == '1':
+    undo_all(folder_path)
+elif undo == '2':
     undo_last_move(folder_path)
+elif undo == '3':
+    print("THanks for using me.")
+else:
+    print("Please choose correct option(1,2 or 3)")
