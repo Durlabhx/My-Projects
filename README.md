@@ -5,23 +5,6 @@ This is a collection of all the small to mid-level projects I create during my l
 
 ---
 
-## 📁 Project Structure
-
-Here's how the repository is organized:
-```text
-Projects
-│
-├── Python/
-│ ├── File-Organizer/ # A GUI tool to organize files by type
-│ └── ...             # More Python projects
-├── LICENSE
-└── README.md         # You're here!
-```  
-
-
-
----
-
 ## 🌱 Why This Repository?
 
 This repository is a part of my personal learning journey where I:
@@ -59,6 +42,27 @@ A GUI-based Python tool that organizes files in a folder based on their type/ext
 - ⏱️ Pomodoro Timer GUI  
 - 💾 GitHub Repo Cloner  
 
+---
+## 📑 Version History
+
+You can track the full version history of all my learning projects here:  
+👉 [VERSION_CONTROL.md](VERSION_CONTROL.md)
+
+
+---
+
+## 📁 Project Structure
+
+Here's how the repository is organized:
+```text
+Projects
+│
+├── Python/
+│ ├── File-Organizer/ # A GUI tool to organize files by type
+│ └── ...             # More Python projects
+├── LICENSE
+└── README.md         # You're here!
+```  
 ---
 
 ## 📄 License
