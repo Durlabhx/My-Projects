@@ -19,6 +19,7 @@ def show_undo_dialog(callback):
     win.title("Undo Options")
     win.geometry("320x160")
     win.resizable(False, False)
+    win.iconbitmap('Assets/file_organizer.ico')
     win.grab_set()
 
     # --- Dialog Content ---

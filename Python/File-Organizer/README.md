@@ -6,7 +6,7 @@ A powerful and easy-to-use file organizer tool built using **Python** and **Tkin
 
 ## 🚀 Features
 
-- ✅ Organizes files by type (Images, Videos, Docs, etc.)
+- ✅ Organizes files by type (Images, Videos, Docs, etc.) with Smooth Progress bar
 - ⏪ Undo support:
   - Undo **Last** moved file
   - Undo **All** moved files
@@ -22,11 +22,11 @@ A powerful and easy-to-use file organizer tool built using **Python** and **Tkin
 
 | Home Interface | Undo Dialog |
 |----------------|-------------|
-| ![Home](Screenshots/home_interface.png) | ![Undo](Screenshots/undo_dialog.png) |
+| ![Home](Assets/Screenshots/home_interface.png) | ![Undo](Assets/Screenshots/undo_dialog.png) |
 
 | Organized | Undo Last | Undo All |
 |-----------|-----------|----------|
-| ![Org](Screenshots/status_organized.png) | ![UL](Screenshots/status_undo_last.png) | ![UA](Screenshots/status_undo_all.png) |
+| ![Org](Assets/Screenshots/status_organized.png) | ![UL](Assets/Screenshots/status_undo_last.png) | ![UA](Assets/Screenshots/status_undo_all.png) |
 
 ---
 

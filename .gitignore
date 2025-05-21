@@ -84,3 +84,4 @@ Test-Folder/
 
 # Ignore undo logs if needed
 *.log.txt
+*.test.py

@@ -30,6 +30,7 @@ A file management tool that began as a **Command-Line Interface (CLI)** app and 
 | `py-file_organizer-v1.3.0`       | f66ac6f   | 🔁 Merge    | Merged undo logic + Improved folder validation       | [📥](https://github.com/Durlabhx/Projects/archive/refs/tags/py-file_organizer-v1.3.0.zip) |
 | `py-file_organizer-v2.0.0`       | 1000301   | 🧰 Major    | GUI added using tkinter + README + Modular Structure | [📥](https://github.com/Durlabhx/Projects/archive/refs/tags/py-file_organizer-v2.0.0.zip) |
 | `py-file_organizer-v2.0.1`       | ff18665   | 🐞 Fix      | Minor typo fix and small code improvements           | [📥](https://github.com/Durlabhx/Projects/archive/refs/tags/py-file_organizer-v2.0.1.zip) |
+| `py-file_organizer-v2.1.0`       | ff18665   | ➕ Feature      | Add taskbar icon, branding, and progress bar to file organizer           | [📥](https://github.com/Durlabhx/Projects/archive/refs/tags/py-file_organizer-v2.1.0.zip) |
 
 <!-- Add future Python projects below -->
 <!-- Example:

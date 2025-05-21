@@ -1,8 +1,9 @@
 import os
 import shutil
-from datetime import datetime as dt
+import time
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from datetime import datetime as dt
+from tkinter import filedialog, messagebox, ttk
 from Widgets.dialogs import show_undo_dialog
 
 FILE_TYPES = {
@@ -15,7 +16,7 @@ FILE_TYPES = {
     "Program": ['.exe']
 }
 
-def organize_file(folder_path, status_label):
+def organize_file(folder_path, status_label, progress_bar):
     if folder_path.strip() == "":
         messagebox.showwarning("Warning", "Please select a folder first.")
         return
@@ -32,6 +33,24 @@ def organize_file(folder_path, status_label):
     if not files:
         messagebox.showerror("Empty!", "Selected folder is empty.")
         return
+    
+    only_file = 0
+    for x in files:
+        if os.path.isfile(os.path.join(folder_path, x)):
+            only_file += 1
+    
+    delay = 0
+    if only_file <= 5:
+        delay = 0.01  # For few files, show progress slowly
+    elif only_file <= 20:
+        delay = 0.05
+    else:
+        delay = 0  # Large files = No delay
+    # Initialize progress bar
+    progress_bar.pack(pady=10)
+    progress_bar['maximum'] = len(files)
+    progress_bar['value'] = 0
+    progress_bar.update()
 
     log_file = os.path.join(folder_path, "log.txt")
     file_summary = {}
@@ -39,6 +58,9 @@ def organize_file(folder_path, status_label):
 
     for file_name in files:
         if file_name == "log.txt":
+            progress_bar['value'] += 1
+            progress_bar.update()
+            time.sleep(delay)
             continue
 
         file_path = os.path.join(folder_path, file_name)
@@ -64,11 +86,18 @@ def organize_file(folder_path, status_label):
             with open(log_file, 'a', encoding="UTF-8") as log:
                 log.write(f"{file_name} -> |{folder if moved else 'Others'}| at {dt.now()}\n")
 
+        progress_bar['value'] += 1
+        progress_bar.update()
+        time.sleep(delay)
+
     summary = f"✅ Organized: {count} files!\n"
     for category, num in file_summary.items():
-        summary += f"  - {category}: {num}\n"
+        summary += f"   - {category}: {num}\n"
 
     status_label.config(text=summary.strip(), fg="green")
+    progress_bar['value'] = 0 #Reset bar after done
+    time.sleep(delay)
+    progress_bar.pack_forget()
 
 def browse_folder(entry_box):
     folder_selected = filedialog.askdirectory()
@@ -76,7 +105,9 @@ def browse_folder(entry_box):
     entry_box.delete(0, tk.END)
     entry_box.insert(0, folder_selected)
 
-def undo_files(folder_path, user_option, status_label):
+def undo_files(folder_path, user_option, status_label, progress_bar):
+
+    status_label.config(text="")
     if not os.path.exists(folder_path):
         messagebox.showerror("Error", "Selected folder does not exist.")
         return
@@ -93,6 +124,14 @@ def undo_files(folder_path, user_option, status_label):
         messagebox.showerror("Empty", "Log file is empty.")
         return
 
+    delay = 0
+    if len(lines)<5:
+        delay = 0.01
+    elif len(lines)<20:
+        delay = 0.05
+    else:
+        delay = 0
+
     lines_to_keep = lines[:]
     count = 0
 
@@ -107,6 +146,11 @@ def undo_files(folder_path, user_option, status_label):
         lines_to_keep.remove(last_line)
         status_label.config(text=f"♻️ Undone: {file_name} from '{folder}'", fg="blue")
     else:
+            # Initialize progress bar
+        progress_bar.pack(pady=10)
+        progress_bar['maximum'] = len(lines_to_keep)
+        progress_bar['value'] = 0
+        progress_bar.update()
         for line in reversed(lines):
             file_name = line.split("->")[0].strip()
             folder = line.split("->")[1].split("at")[0].strip().strip('|')
@@ -116,25 +160,36 @@ def undo_files(folder_path, user_option, status_label):
             shutil.move(source, destination)
             lines_to_keep.remove(line)
             count += 1
+            progress_bar['value'] += 1
+            progress_bar.update()
+            time.sleep(delay)
+            
         status_label.config(text=f"♻️ Undone: {count} files moved back!", fg="blue")
+        progress_bar['value'] = 0 #Reset bar after done
+        time.sleep(delay)
+        progress_bar.pack_forget()
 
     with open(log_file, 'w', encoding='UTF-8') as f:
         f.writelines(lines_to_keep)
 
-def handle_choice(choice, folder_path, status_label):
+def handle_choice(choice, folder_path, status_label, progress_bar):
     if choice == "Undo Last":
         user_option = "undo_last"
     elif choice == "Undo All":
         user_option = "undo_all"
     else:
         return
-    undo_files(folder_path, user_option, status_label)
+    undo_files(folder_path, user_option, status_label, progress_bar)
 
 def main():
     root = tk.Tk()
-    root.title("🗂️ File Organizer")
+    root.title("File Organizer")
     root.geometry("450x350")
     root.resizable(False, False)
+    try:
+        root.iconbitmap('Assets/file_organizer.ico')
+    except Exception as e:
+        print("Icon file missing or error loading:", e)
 
     tk.Label(root, text="Select folder to organize", font=("Arial", 12)).pack(pady=(15, 5))
 
@@ -146,14 +201,17 @@ def main():
     status_label = tk.Label(root, text="", font=("Arial", 10), justify="left")
     status_label.pack(pady=10)
 
+    #progress bar widget
+    progress_bar = ttk.Progressbar(root, orient='horizontal', length=300, mode='determinate')
+
     tk.Button(
         root, text="✅ Organize Files", fg="white", bg="#4CAF50",
-        width=20, command=lambda: organize_file(entry_box.get(), status_label)
+        width=20, command=lambda: organize_file(entry_box.get(), status_label, progress_bar)
     ).pack(pady=5)
 
     tk.Button(
         root, text="↩️ Undo Files", bg="red", fg="white",
-        width=20, command=lambda: show_undo_dialog(lambda choice: handle_choice(choice, entry_box.get(), status_label))
+        width=20, command=lambda: show_undo_dialog(lambda choice: handle_choice(choice, entry_box.get(), status_label, progress_bar))
     ).pack(pady=5)
 
     root.mainloop()
