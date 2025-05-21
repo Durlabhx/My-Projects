@@ -49,8 +49,8 @@ A powerful and easy-to-use file organizer tool built using **Python** and **Tkin
 
 ```bash...
 # 1. Clone this repository
-git clone https://github.com/Durlabhx/My-Projects/Python/File-Organizer.git
-cd File-Organizer
+git clone https://github.com/Durlabhx/Projects.git
+cd Projects/Python/File-Organizer
 
 # 2. Run the app
 python file_organizer_GUI.py
@@ -62,12 +62,12 @@ python file_organizer_GUI.py
 ```text
 Projects/Python/File-Organizer
 │
-├── file_organizer_GUI.py              # Main GUI code
-├── file_organizer.py      # CLI Logic to organize & undo files
-├── test.py                # nothing just to test any code
-├── log.txt        # Keeps track of moved files
+├── file_organizer_GUI.py          # Main GUI code
+├── file_organizer.py              # CLI Logic to organize & undo files
+├── test.py                        # nothing just to test any code
+├── log.txt                        # Keeps track of moved files
 ├── Widgets/
-│   └── dialogs.py       # Custom Undo dialog
+│   └── dialogs.py                 # Custom Undo dialog
 ├── Screenshots/
 │   │── home_interface.png 
 │   │── status_organized.png
@@ -111,7 +111,7 @@ git push origin feature/YourFeatureName
 ---
 
 ## 📃 License
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](../../LICENSE).
 
 ## ✨ Author
 Created with 💻 by Durlabh Kashyap  

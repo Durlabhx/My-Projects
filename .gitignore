@@ -1,0 +1,86 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python virtual environments
+env/
+venv/
+ENV/
+VENV/
+
+# Python log and cache files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.cache
+*.coverage
+*.mypy_cache/
+*.pytest_cache/
+
+# Java class files
+*.class
+
+# Java IDEs
+/.idea/
+/*.iml
+/.project
+/.classpath
+/.settings/
+
+# Node modules (for future JS projects)
+node_modules/
+
+# VS Code
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Logs
+logs/
+*.log
+
+# Build directories
+dist/
+build/
+target/
+
+# Coverage reports
+coverage/
+*.cover
+
+# Environment config
+.env
+.env.*
+
+# HTML temp/cache (if using tools)
+.cache/
+*.tmp
+
+# Jupyter Notebooks (optional)
+.ipynb_checkpoints/
+
+# Personal backup files
+*.bak
+*.swp
+*.swo
+
+# Output folders
+/output/
+Test-Folder/
+
+# Ignore undo logs if needed
+*.log.txt
