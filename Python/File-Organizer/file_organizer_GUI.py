@@ -92,7 +92,7 @@ def organize_file(folder_path, status_label, progress_bar):
 
     summary = f"✅ Organized: {count} files!\n"
     for category, num in file_summary.items():
-        summary += f"   - {category}: {num}\n"
+        summary += f"  - {category}: {num}\n"
 
     status_label.config(text=summary.strip(), fg="green")
     progress_bar['value'] = 0 #Reset bar after done
