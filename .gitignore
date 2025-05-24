@@ -19,6 +19,7 @@ VENV/
 *.db
 *.cache
 *.coverage
+*.key
 *.mypy_cache/
 *.pytest_cache/
 
@@ -84,4 +85,5 @@ Test-Folder/
 
 # Ignore undo logs if needed
 *.log.txt
+*.data.json
 *.test.py

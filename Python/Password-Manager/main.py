@@ -1,27 +1,28 @@
 import json
 import os
-
+from Durlabh.encryption import fernet as ft
 DATA_FILE = "data.json"
 
 def load_data():
     if not os.path.exists(DATA_FILE):
         return {}
     try:
-        with open(DATA_FILE, "r") as f:
+        with open(DATA_FILE, "r", encoding='UTF-8') as f:
             return json.load(f)
     except json.JSONDecodeError:
         print('[!] Error: data.json is corrupted or empty. Resetting file....')
         return {}
 
 def save_data(data):
-    with open(DATA_FILE, "w") as f:
+    with open(DATA_FILE, "w", encoding='UTF-8') as f:
         json.dump(data, f, indent=4)
 
 def add_password(website, username, password):
     data = load_data()
+    encrypted_password = ft.encrypt(password.encode()).decode()
     data[website] = {
         "username": username,
-        "password": password
+        "password": encrypted_password
     }
     save_data(data)
     print(f"[✔] Password saved for '{website}'.")
@@ -34,7 +35,13 @@ def view_passwords():
     for website, creds in data.items():
         print(f"\n🌐 {website}")
         print(f"   👤 Username: {creds['username']}")
-        print(f"   🔑 Password: {creds['password']}")
+
+        try:
+            decrypted_password = ft.decrypt(creds["password"].encode()).decode()
+            print(f"   🔑 Password: {decrypted_password}")
+        except Exception as e:
+            print("   🔒 Could not decrypt (corrupted or wrong key)")
+
     print(f"[i] Total saved passwords: {len(data)}")
     return data
 
