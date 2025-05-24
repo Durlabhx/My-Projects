@@ -2,5 +2,13 @@
     "Youtube": {
         "username": "homit",
         "password": "gAAAAABoMXh4s-AJ_Z3soGoYMug7S-8LadQF6cby1IVgnQP8Kqb2YHNwJEOO4CGS9RMeBc10R2pGYlPWH1ElO6Fx2NjSS0AJEw=="
+    },
+    "Google": {
+        "username": "huser",
+        "password": "gAAAAABoMaKMHoQHg13-DnmoHYUGRv4Z1smErUij_ku6MaXOjHZn7zepxwQFj6E1DYLolzEzopVixcDhXLMYs4EF0jRgcYehUg=="
+    },
+    "Github": {
+        "username": "jokt",
+        "password": "gAAAAABoMaKZkQTo_fEJKJN5UtuE_K1IJQL9eLRqbiXou1eFxAk9SDJ7yrUiID1q0eCKWb1xxMfp_osogjrJsUz6JPHrG4MxFQ=="
     }
 }

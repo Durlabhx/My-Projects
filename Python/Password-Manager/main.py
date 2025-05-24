@@ -32,17 +32,35 @@ def view_passwords():
     if not data:
         print("[!] No passwords saved.")
         return
-    for website, creds in data.items():
-        print(f"\n🌐 {website}")
-        print(f"   👤 Username: {creds['username']}")
 
-        try:
-            decrypted_password = ft.decrypt(creds["password"].encode()).decode()
-            print(f"   🔑 Password: {decrypted_password}")
-        except Exception as e:
-            print("   🔒 Could not decrypt (corrupted or wrong key)")
+    websites = list(data.keys())
+    print("\n===== SAVED WEBSITES =====")
+    for i, site in enumerate(websites, 1):
+        print(f"{i}. {site}")
 
-    print(f"[i] Total saved passwords: {len(data)}")
+    while True:
+        choice = input("\nEnter number to view details (or 'b' to go back): ").strip()
+        if choice.lower() == 'b':
+            return
+        
+        if not choice.isdigit():
+            print("[!] Please enter a valid number.")
+            continue
+
+        index = int(choice)
+        if 1 <= index <= len(websites):
+            website = websites[index - 1]
+            creds = data[website]
+            print(f"\n🌐 {website}")
+            print(f"   👤 Username: {creds['username']}")
+            try:
+                decrypted_password = ft.decrypt(creds["password"].encode()).decode()
+                print(f"   🔑 Password: {decrypted_password}")
+            except Exception:
+                print("   🔒 Could not decrypt (corrupted or wrong key)")
+                break
+        else:
+            print("[!] Invalid Selection.")
     return data
 
 def delete_passwords():
